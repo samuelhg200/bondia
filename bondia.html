@@ -98,25 +98,8 @@
         //button stuff
        function takeScreenShot(){
             html2canvas(document.querySelector("#capture")).then(canvas => {
-            //document.body.appendChild(canvas)
-            const image = Canvas2Image.convertToImage(canvas).getAttribute('src')
-            console.log(image)
-            let file;
-            fetch(image).then(res => res.blob()).then(blob => {
-                file = new File([blob], 'screenshot.png', blob)
-                console.log(file)
-            })
-
-            //file = new File([Canvas2Image.convertToImage(canvas).getAttribute('src')], 'screenshot.jpeg')
-            navigator.share({
-                files: file,
-            title: 'Screenshot of today',
-            text: 'Checkealo!',
-            }).then(() => {
-                console.log('Thanks for sharing!');
-            })
-            .catch(console.error);
-            //Canvas2Image.saveAsPNG(canvas);
+            
+            Canvas2Image.saveAsPNG(canvas);
             });
         }
         
