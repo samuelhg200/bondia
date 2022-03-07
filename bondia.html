@@ -100,8 +100,9 @@
             html2canvas(document.querySelector("#capture")).then(canvas => {
             //document.body.appendChild(canvas)
             const image = Canvas2Image.convertToImage(canvas).getAttribute('src')
+            console.log(image)
             let file;
-            fetch(image.src).then(res => res.blob).then(blob => {
+            fetch(image).then(res => res.blob()).then(blob => {
                 file = new File([blob], 'screenshot.png', blob)
                 console.log(file)
             })
