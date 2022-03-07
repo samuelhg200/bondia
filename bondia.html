@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./styles.css">
+        <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <script src="./canvas2image.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<title>Bondia!</title>
+    </head>
+</html>
+<body>
+    <div id="capture" class="bg main">
+        <div class='title'>
+            <strong>
+                <p>Bondia❤️</p>
+            </strong>
+        </div>
+        <img id="img" src="./samu.jpg" style="width: 50%;  border-radius: 50%; display: block; margin-left: auto; margin-right: auto " />
+        <br><br><br><hr><br>
+        <div class='task' >
+            <strong>
+                <p id="TASK">Do something</p>
+            </strong>
+        </div>
+        <button type="button"  onclick="takeScreenShot()" class="btn btn-default">Compartir!⚡</button>
+        
+    </div>
+
+    <script>
+        
+
+        let task = document.getElementById('TASK');
+        let image = document.getElementById("img")
+
+        image.src = new Date().getDate() % 2 ? './samu.jpg' : './maria.jpg'
+
+        let name = new Date().getDate() % 2 ? 'maria' : 'samu'
+         
+        const arr = [
+            'Dibuja algo raro en noteit.',
+            'Di te quiero de la nada no des explicaciones.',
+            'Envia un nude de la nada no des explicaciones.',
+            'Haz ejercicio hoy y tomate una foto cuando acabes.',
+            'Explica por chat que eres una retrasada (50 palabras minimo) no des explicaciones.',
+            'Envia un audio de 5 minutos gimiendo.',
+            'Tocate esta noche.',
+            'Haz algo bonito por ' + name + '.',
+            'Busca una razon para enfadarte y comienza una discusion con ' + name + ". No des explicaciones.",
+            'Di algo toxico a ' + name + '. No des explicaciones.',
+            'Envia un video tocandote a ' + name + '.',
+            'Envia una historia erotica que te guste a ' + name + '.',
+            'Cuentale a ' + name + ' un pensamiento toxico que hayas pensado hoy. No des explicaciones.',
+            'Llama a ' + name + ' sin avisar.',
+            'Envia un selfie a ' + name + ' de como estas ahora mismo.',
+            'Para un segundo. Reflexiona. Que cojones te pasa?',
+            'Admitele algo a ' + name + ' hoy. No des explicaciones.',
+            'Envia una historia erotica que te guste a ' + name + '.',
+            'Envia una historia erotica que te guste a ' + name + '.',
+            'Envia una historia erotica que te guste a ' + name + '.',
+            'Dile a ' + name + ' cual es tu nude favorito de ' + name +'. Explica que en concreto te gusta.',
+            'Te quiero maria❤️',
+            'Cambia tu estado de whatsapp.',
+            'Cambia tu foto de perfil de whatsapp.',
+            'Envia una cancion a ' + name + '.',
+            'Dile un piropo a ' + name + '.',
+            'Busca un espejo. Ponte delante. Sonrie. Y mirate durante 10 segundos.',
+            'Graba un selfievideo pegandote una torta. Enviaselo a ' + name + '. No des explicaciones.',
+            'Compra un juguete sexual o algo sexual para ' + name + '. No se lo digas. Si ya lo has hecho, refresca la pagina.',
+            'Haz algo que requiera esfuerzo por ' + name + '.',
+            'Cuentale a '+name+' un recuerdo de los dos que te traiga una sonrisa.',
+            'Acuerda con ' + name + ' una sesion de una hora hablando en ingles.',
+            'Busca un restaurante interesante. Haz una reserva, luego cuentale a ' + name + '.',
+            'Fumate un piti.',
+            'Describe a ' + name + ' por chat porque eres la persona mas increible que existe. Minimo 100 palabras.',
+            'Hoy no haces nada por puta vaga.',
+            'Añade algo a esto. Dile a samu el que.',
+            'Es esto lo que quieres?',
+            'Piensa. Que crees estar haciendo mal ahora mismo. Arreglalo ahora.',
+            'Maria hoy se pone el vibrador todo el dia (hasta humanament posible). No importa si es el dia de samu.',
+            'Busca un filtro horrible en instagram tomate un selfie y subelo a CF.',
+            'Busca un filtro bellisimo en instagram tomate un selfie y subelo a CF.',
+            'Sube una foto a CF con '+name+' que averguence a ' + name + '.',
+            'Sube una foto a CF con '+name+' en el que ' + name + ' salga sexy.',
+            'Consique hacer chat hot con ' + name + ' esta noche. No digas nada.',
+            'Dile un pensamiento sucio a ' + name + ' de la nada. No des explicaciones.',
+            name + ' elige que haces hoy.',
+            'Dile a ' + name + ' que harias si fuera tu ultimo dia en la tierra.',
+            'Dile a ' + name + ' porque le quieres. Cuando encuentres el momento.',
+        ];
+         
+
+
+        task.innerHTML =  arr[Math.floor(Math.random() * arr.length)];
+
+        //button stuff
+        function takeScreenShot(){
+            html2canvas(document.querySelector("#capture")).then(canvas => {
+            //document.body.appendChild(canvas)
+            Canvas2Image.saveAsPNG(canvas);
+        });
+        }
+        
+   
+         
+    </script>
+
+</body>
