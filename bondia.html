@@ -11,35 +11,98 @@
 </html>
 <body>
     <div id="capture" class="bg main">
-        <div class='title' id='start'>
+        <div class='title'>
             <strong>
-                <p>Bondia❤️
-                </p>
+                <p>Bondia❤️</p>
             </strong>
-                
         </div>
-        <hr><br><br><br>
         <img id="img" src="./samu.jpg" style="width: 50%;  border-radius: 50%; display: block; margin-left: auto; margin-right: auto " />
-        <div id="current_date" class="subtitle"></p>
-                <script>
-                date = new Date();
-                year = date.getFullYear();
-                month = date.getMonth() + 1;
-                day = date.getDate();
-                document.getElementById("current_date").innerHTML = day + "/" + month + "/" + year;
-                </script>
-        <br><br><hr>
+        <br><br><br><hr><br>
         <div class='task' >
             <strong>
-                <p id="TASK">Cargando...</p>
+                <p id="TASK">Do something</p>
             </strong>
         </div>
-        <br><hr><br><br><br>
         <button type="button"  onclick="takeScreenShot()" class="btn btn-default">Compartir!⚡</button>
         
     </div>
 
     <script>
+
+        let dateToday = new Date()
+        
+        //standarize to spain UTC+1 OFFSET
+        //check if in spain or uk (uk === UTC OFFSET 1)
+        if (dateToday.getTimezoneOffset() === 0){
+            dateToday.setUTCHours(dateToday.getHours() + 1)
+        }
+        dateToday = dateToday.toISOString().split('T')[0]
+
+        //get todays dare if any
+        const getTodayDare = async () => {
+            try {
+                const response = await fetch(
+				"https://bondia-2b26e-default-rtdb.europe-west1.firebasedatabase.app/dares.json"
+			);
+
+			if (!response.ok) {
+				throw new Error("Something went wrong!");
+			}
+
+			const resData = await response.json();
+
+            for (const key in resData) {
+				if (resData[key].date === dateToday){
+                    return resData[key].dare
+                } else {
+                    return false;
+                }
+			}
+
+            } catch (err) {
+                throw err
+            }
+        }
+
+        
+
+        //set todays dare
+        const setDare = async (dare) => {
+            
+            
+            
+
+                const response = await fetch(
+                    "https://bondia-2b26e-default-rtdb.europe-west1.firebasedatabase.app/dares.json",
+                     {
+                         method: "POST",
+                         header: {
+                             "Content-Type":"application/json",
+                         },
+                         body: JSON.stringify({
+                            
+                            
+                            date: dateToday,
+                             dare: dare,
+                         })
+                     }
+                )
+
+
+                if (!response.ok){
+                    throw new Error("Something went wrong!")
+                }
+
+                const resData = await response.json
+                console.log(resData)
+               
+        }
+
+        
+        
+        
+
+        //setDare()
         
 
         let task = document.getElementById('TASK');
@@ -63,7 +126,7 @@
             'Envia un video tocandote a ' + name + '.',
             'Envia una historia erotica que te guste a ' + name + '.',
             'Cuentale a ' + name + ' un pensamiento toxico que hayas pensado hoy. No des explicaciones.',
-            'Llama a ' + name + ' sin avisar.',
+            'Llama a ' + name + ' sin avisar. No des explicaciones.',
             'Envia un selfie a ' + name + ' de como estas ahora mismo.',
             'Para un segundo. Reflexiona. Que cojones te pasa?',
             'Admitele algo a ' + name + ' hoy. No des explicaciones.',
@@ -73,12 +136,11 @@
             'Dile a ' + name + ' cual es tu nude favorito de ' + name +'. Explica que en concreto te gusta.',
             'Te quiero maria❤️',
             'Cambia tu estado de whatsapp.',
-            'Cambia tu foto de perfil de whatsapp.',
             'Envia una cancion a ' + name + '.',
             'Dile un piropo a ' + name + '.',
             'Busca un espejo. Ponte delante. Sonrie. Y mirate durante 10 segundos.',
             'Graba un selfievideo pegandote una torta. Enviaselo a ' + name + '. No des explicaciones.',
-            'Compra un juguete sexual o algo sexual para ' + name + '. No se lo digas. Si ya lo has hecho, refresca la pagina.',
+            'Compra un juguete sexual o algo sexual para ' + name + '. No des explicaciones. Si ya lo has hecho, refresca la pagina.',
             'Haz algo que requiera esfuerzo por ' + name + '.',
             'Cuentale a '+name+' un recuerdo de los dos que te traiga una sonrisa.',
             'Acuerda con ' + name + ' una sesion de una hora hablando en ingles.',
@@ -88,29 +150,71 @@
             'Hoy no haces nada por puta vaga.',
             'Añade algo a esto. Dile a samu el que.',
             'Es esto lo que quieres?',
-            'Piensa. Que crees estar haciendo mal ahora mismo. Arreglalo ahora.',
+            'Piensa. Que crees estar haciendo mal ahora mismo. Arreglalo ahora. No des explicaciones.',
             'Maria hoy se pone el vibrador todo el dia (hasta humanament posible). No importa si es el dia de samu.',
             'Busca un filtro horrible en instagram tomate un selfie y subelo a CF.',
             'Busca un filtro bellisimo en instagram tomate un selfie y subelo a CF.',
+            'Busca un filtro bellisimo en instagram tomate un selfie y subelo a CF. No des explicaciones.',
             'Sube una foto a CF con '+name+' que averguence a ' + name + '.',
             'Sube una foto a CF con '+name+' en el que ' + name + ' salga sexy.',
-            'Consique hacer chat hot con ' + name + ' esta noche. No digas nada.',
+            'Sube una foto tuya a CF en la que salgas sexy.  No des explicaciones.',
+            'Consique hacer chat hot con ' + name + ' esta noche.  No des explicaciones.',
             'Dile un pensamiento sucio a ' + name + ' de la nada. No des explicaciones.',
             name + ' elige que haces hoy.',
             'Dile a ' + name + ' que harias si fuera tu ultimo dia en la tierra.',
             'Dile a ' + name + ' porque le quieres. Cuando encuentres el momento.',
+            'Di o haz algo para enfadar a ' + name + '.  No des explicaciones hasta que se enfade.',
+            name === 'samu' ? 'Envia una foto o video de tu espalda.' : 'Envia una foto de tu culo a samu. Acachate para que se vea todo...',
+            'Envia un audio sexy describiendo que le harias a ' + name + ' para que tuviera la mejor noche de su vida.',
+            'Si no ibas a hacer ejercicio hoy, haz. Si tenias planeado hacer, duplica el ejercicio.',
+            'Busca un viaje para verano. Planealo con hotel, vuelos, coche y alguna actividad/sitio para visitar.',
+            'Esta noche grabate mientras te tocas. No importa cuanto tiempo tardes, no dejes de grabar hasta el orgasmo. Enviaselo a ' + name + '.',
+            'Confiesa una inseguridad que has tenido en los ultimos 7 dias en relacion a ' + name + '.',
+            name === 'samu' ? 'Ponte lo mas handsome que tengas. Enviale una foto a maria.' : 'Si vas a salir hoy. Ponte lo mas sexy que tengas en el armario. Cuando acabe el dia enviaselo a samu antes de quitartelo.  No des explicaciones hasta enviarla.',
+            'Sube una foto que no te atrevas a subir a CF. Puedes borrarla cuando pase media hora.',
+            'Deja que '+name+' te compre una prenda/conjunto de ropa original.',
+            name === 'samu' ? 'Graba un video masturbandote encima de una foto de maria, correte encima. No des explicaciones.' : 'Compra un condon. Busca algo largo en casa o compralo y envia un video a samu disfrutandolo esta noche.  No des explicaciones.',
+            'Pidele a ' + name + ' que te diga algo sexual que nunca has hecho. Hazlo sea lo que sea y grabalo. No des explicaciones.',
+
+
+
         ];
+
+        const encrypt = (dare) => {
+            let hide;
+            if(dare.toLowerCase().includes('no des explicaciones')){
+                hide = true;
+                // si le toca a maria y hay que esconder
+                if (name === 'samu'){
+                    return new Date().getTimezoneOffset() === 0 ? 'Solo maria puede verlo🔒' : dare
+                } else {
+                    return new Date().getTimezoneOffset() === 0 ? dare : 'Solo samu puede verlo🔒'
+                }
+            } else {
+                return dare;
+            }
+        }
+
+       getTodayDare().then(value => {
+            if(value){
+                task.innerHTML = encrypt(value);
+                //task.innerHTML =  arr[Math.floor(Math.random() * arr.length)];
+            } else {
+                const dare = arr[Math.floor(Math.random() * arr.length)];
+                setDare(dare)
+                task.innerHTML = encrypt(dare)
+            }
+        }
+       )
+        
          
 
-
-        task.innerHTML =  arr[Math.floor(Math.random() * arr.length)];
-
         //button stuff
-       function takeScreenShot(){
+        function takeScreenShot(){
             html2canvas(document.querySelector("#capture")).then(canvas => {
-            
+            //document.body.appendChild(canvas)
             Canvas2Image.saveAsPNG(canvas);
-            });
+        });
         }
         
    
