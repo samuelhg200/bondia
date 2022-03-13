@@ -36,6 +36,7 @@
         if (dateToday.getTimezoneOffset() === 0){
             dateToday.setUTCHours(dateToday.getHours() + 1)
         }
+        const dateTodayDate = dateToday
         dateToday = dateToday.toISOString().split('T')[0]
 
         //get todays dare if any
@@ -108,9 +109,9 @@
         let task = document.getElementById('TASK');
         let image = document.getElementById("img")
 
-        image.src = new Date().getDate() % 2 ? './samu.jpg' : './maria.jpg'
+        image.src = dateTodayDate.getDate() % 2 ? './samu.jpg' : './maria.jpg'
 
-        let name = new Date().getDate() % 2 ? 'maria' : 'samu'
+        let name = dateTodayDate.getDate() % 2 ? 'maria' : 'samu'
          
         const arr = [
             'Dibuja algo raro en noteit.',
